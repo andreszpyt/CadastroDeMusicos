@@ -18,6 +18,6 @@ public class InstrumentoModel {
             @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
-    @OneToMany
+    @OneToMany(mappedBy = "instrumento")
     List<MusicoModel> musico;
 }
