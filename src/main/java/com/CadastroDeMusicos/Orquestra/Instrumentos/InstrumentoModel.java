@@ -15,9 +15,9 @@ import java.util.List;
 @Table(name = "tb_instrumentos")
 public class InstrumentoModel {
     @Id
-            @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String nome;
     @OneToMany(mappedBy = "instrumento")
-    List<MusicoModel> musico;
+    private List<MusicoModel> musico;
 }

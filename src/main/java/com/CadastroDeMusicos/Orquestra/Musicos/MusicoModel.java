@@ -1,6 +1,5 @@
 package com.CadastroDeMusicos.Orquestra.Musicos;
 
-
 import com.CadastroDeMusicos.Orquestra.Instrumentos.InstrumentoModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class MusicoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     private String nome;
     private String comum;
     private int idade;
