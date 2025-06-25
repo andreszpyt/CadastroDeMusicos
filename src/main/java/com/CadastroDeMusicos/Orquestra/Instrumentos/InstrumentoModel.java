@@ -1,6 +1,7 @@
 package com.CadastroDeMusicos.Orquestra.Instrumentos;
 
 import com.CadastroDeMusicos.Orquestra.Musicos.MusicoModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,5 +20,6 @@ public class InstrumentoModel {
     private long id;
     private String nome;
     @OneToMany(mappedBy = "instrumento")
+    @JsonIgnore
     private List<MusicoModel> musico;
 }

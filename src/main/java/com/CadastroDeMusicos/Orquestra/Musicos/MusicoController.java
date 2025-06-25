@@ -9,6 +9,11 @@ import java.util.List;
 public class MusicoController {
 
     private MusicoService musicoService;
+
+    public MusicoController(MusicoService musicoService) {
+        this.musicoService = musicoService;
+    }
+
     // criar músico
     @PostMapping("/create")
     public String create(){
