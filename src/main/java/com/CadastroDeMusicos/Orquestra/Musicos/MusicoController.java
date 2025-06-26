@@ -1,5 +1,6 @@
 package com.CadastroDeMusicos.Orquestra.Musicos;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,9 +16,9 @@ public class MusicoController {
     }
 
     // criar músico
-    @PostMapping("/create")
-    public String create(){
-        return "Cadastrar Músico";
+    @PostMapping("/save")
+    public MusicoModel create(@RequestBody MusicoModel musico){
+        return musicoService.saveNinja(musico);
     }
 
     // Listar músico
@@ -27,10 +28,11 @@ public class MusicoController {
     }
 
     // Listar Musico por ID
-    @GetMapping("/readbyid")
-    public String readByID(){
-        return "Mostrar Musicos por ID";
+    @GetMapping("/{id}")
+    public MusicoModel readByID(@PathVariable Long id){
+        return musicoService.listarPorId(id);
     }
+
 
     // deletar músico
     @PutMapping("/remove")
