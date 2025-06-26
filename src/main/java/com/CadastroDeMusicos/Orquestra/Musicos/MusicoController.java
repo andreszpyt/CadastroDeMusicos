@@ -21,6 +21,7 @@ public class MusicoController {
         return musicoService.saveMusico(musico);
     }
 
+
     // Listar músico
     @GetMapping("/read")
     public List<MusicoModel> read(){
@@ -33,12 +34,17 @@ public class MusicoController {
         return musicoService.listarPorId(id);
     }
 
-
-    // deletar músico
+    // deletar músico por id
     @DeleteMapping("/remover/{id}")
     public String remove(@PathVariable Long id){
         musicoService.removerMusico(id);
         return "Músico removido";
     }
 
+    // Atualizar músico
+    @PutMapping("/atualizar")
+    public String atualizar(){
+
+        return "Músico atualizado";
+    }
 }
