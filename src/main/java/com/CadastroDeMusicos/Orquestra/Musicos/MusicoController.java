@@ -18,7 +18,7 @@ public class MusicoController {
     // criar músico
     @PostMapping("/save")
     public MusicoModel create(@RequestBody MusicoModel musico){
-        return musicoService.saveNinja(musico);
+        return musicoService.saveMusico(musico);
     }
 
     // Listar músico
@@ -28,16 +28,17 @@ public class MusicoController {
     }
 
     // Listar Musico por ID
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public MusicoModel readByID(@PathVariable Long id){
         return musicoService.listarPorId(id);
     }
 
 
     // deletar músico
-    @PutMapping("/remove")
-    public String remove(){
-        return "Deletar Músico";
+    @DeleteMapping("/remover/{id}")
+    public String remove(@PathVariable Long id){
+        musicoService.removerMusico(id);
+        return "Músico removido";
     }
 
 }

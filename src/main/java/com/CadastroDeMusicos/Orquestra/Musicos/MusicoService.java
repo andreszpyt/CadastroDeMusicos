@@ -22,8 +22,12 @@ public class MusicoService {
             return musicoId.orElse(null);
         }
 
-        public MusicoModel saveNinja(MusicoModel musico){
+        public MusicoModel saveMusico(MusicoModel musico){
            return musicoRepository.save(musico);
+        }
+
+        public void removerMusico(Long id){
+            musicoRepository.deleteById(id);
         }
 
 }
