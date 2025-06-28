@@ -7,7 +7,7 @@ import java.util.Optional;
 
 @Service
 public class MusicoService {
-    private MusicoRepository musicoRepository;
+    private final MusicoRepository musicoRepository;
 
     public MusicoService(MusicoRepository musicoRepository) {
         this.musicoRepository = musicoRepository;
@@ -28,6 +28,14 @@ public class MusicoService {
 
         public void removerMusico(Long id){
             musicoRepository.deleteById(id);
+        }
+
+        public MusicoModel atualizarMusico(Long id, MusicoModel musico){
+            if(musicoRepository.existsById(id)){
+                musico.setId(id);
+                return musicoRepository.save(musico);
+            }
+            return null;
         }
 
 }

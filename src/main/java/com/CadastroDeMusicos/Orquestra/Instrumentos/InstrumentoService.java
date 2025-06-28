@@ -32,8 +32,20 @@ public class InstrumentoService {
         instrumentoRepository.save(instrumento);
     }
 
+    //delete
     public void delete(Long id){
         instrumentoRepository.deleteById(id);
+
     }
+
+    //Atualizar
+    public InstrumentoModel atualizarInstrumento(Long id, InstrumentoModel instrumento){
+        if(instrumentoRepository.findById(id)){
+            instrumento.setId(id);
+            return instrumentoRepository.save(instrumento);
+        }
+        return null;
+    }
+
 
 }

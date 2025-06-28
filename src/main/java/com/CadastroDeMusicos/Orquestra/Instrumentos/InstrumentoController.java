@@ -37,4 +37,10 @@ public class InstrumentoController {
         instrumentoService.delete(id);
         return "Instrumento deletado";
     }
+
+    // Atualizar Instrumento
+    @PutMapping("/atualizar/{id}")
+    public InstrumentoModel atualizarInstrumento(@PathVariable Long id, @RequestBody InstrumentoModel instrumento){
+        return instrumentoService.atualizarInstrumento(id, instrumento);
+    }
 }

@@ -42,9 +42,9 @@ public class MusicoController {
     }
 
     // Atualizar músico
-    @PutMapping("/atualizar")
-    public String atualizar(){
-
-        return "Músico atualizado";
+    @PutMapping("/atualizar/{id}")
+    public String atualizar(@PathVariable Long id, @RequestBody MusicoModel musico){
+        musicoService.atualizarMusico(id, musico);
+        return "Músico Atualizado";
     }
 }
