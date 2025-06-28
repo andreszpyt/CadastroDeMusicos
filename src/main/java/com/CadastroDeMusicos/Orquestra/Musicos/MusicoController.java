@@ -17,10 +17,9 @@ public class MusicoController {
 
     // criar músico
     @PostMapping("/save")
-    public MusicoModel create(@RequestBody MusicoModel musico){
+    public MusicoDTO create(@RequestBody MusicoDTO musico){
         return musicoService.saveMusico(musico);
     }
-
 
     // Listar músico
     @GetMapping("/read")
@@ -43,7 +42,7 @@ public class MusicoController {
 
     // Atualizar músico
     @PutMapping("/atualizar/{id}")
-    public String atualizar(@PathVariable Long id, @RequestBody MusicoModel musico){
+    public String atualizar(@PathVariable Long id, @RequestBody MusicoDTO musico){
         musicoService.atualizarMusico(id, musico);
         return "Músico Atualizado";
     }

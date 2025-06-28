@@ -8,12 +8,14 @@ import java.util.Optional;
 @Service
 public class MusicoService {
     private final MusicoRepository musicoRepository;
+    private final MusicoMapper musicoMapper;
 
-    public MusicoService(MusicoRepository musicoRepository) {
+    public MusicoService(MusicoRepository musicoRepository, MusicoMapper musicoMapper) {
         this.musicoRepository = musicoRepository;
+        this.musicoMapper = musicoMapper;
     }
 
-        public List<MusicoModel> listarMusicos(){
+    public List<MusicoModel> listarMusicos(){
             return musicoRepository.findAll();
         }
 
@@ -22,18 +24,21 @@ public class MusicoService {
             return musicoId.orElse(null);
         }
 
-        public MusicoModel saveMusico(MusicoModel musico){
-           return musicoRepository.save(musico);
+        public MusicoDTO saveMusico(MusicoDTO dto){
+            MusicoModel musico = musicoMapper.map(dto);
+            MusicoModel saved = musicoRepository.save(musico);
+           return musicoMapper.map(saved);
         }
 
         public void removerMusico(Long id){
             musicoRepository.deleteById(id);
         }
 
-        public MusicoModel atualizarMusico(Long id, MusicoModel musico){
+        public MusicoDTO atualizarMusico(Long id, MusicoDTO musico){
             if(musicoRepository.existsById(id)){
-                musico.setId(id);
-                return musicoRepository.save(musico);
+                MusicoModel model = musicoMapper.map(musico);
+                MusicoModel update = musicoRepository.save(model);
+                return musicoMapper.map(update);
             }
             return null;
         }

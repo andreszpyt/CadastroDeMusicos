@@ -40,7 +40,7 @@ public class InstrumentoService {
 
     //Atualizar
     public InstrumentoModel atualizarInstrumento(Long id, InstrumentoModel instrumento){
-        if(instrumentoRepository.findById(id)){
+        if(instrumentoRepository.existsById(id)){
             instrumento.setId(id);
             return instrumentoRepository.save(instrumento);
         }
