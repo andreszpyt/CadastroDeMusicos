@@ -16,18 +16,18 @@ public class InstrumentoController {
 
     // Listar todos
     @GetMapping("/listar")
-    public List<InstrumentoModel> listarTodos(){
+    public List<InstrumentoDTO> listarTodos(){
         return instrumentoService.listar();
     }
 
     // Listar por ID
     @GetMapping("/id/{id}")
-    public InstrumentoModel listarById(@PathVariable Long id){
+        public InstrumentoDTO listarById(@PathVariable Long id){
         return instrumentoService.listarPorID(id);
     }
 
     @PostMapping("/save")
-    public String saveInstrumento(@RequestBody InstrumentoModel instrumento){
+    public String saveInstrumento(@RequestBody InstrumentoDTO instrumento){
         instrumentoService.save((instrumento));
         return "Instrumento Salvo com Sucesso";
     }
@@ -40,7 +40,8 @@ public class InstrumentoController {
 
     // Atualizar Instrumento
     @PutMapping("/atualizar/{id}")
-    public InstrumentoModel atualizarInstrumento(@PathVariable Long id, @RequestBody InstrumentoModel instrumento){
-        return instrumentoService.atualizarInstrumento(id, instrumento);
+    public String atualizarInstrumento(@PathVariable Long id, @RequestBody InstrumentoDTO instrumento){
+        instrumentoService.atualizarInstrumento(id, instrumento);
+        return "Instrumento Atualizado";
     }
 }

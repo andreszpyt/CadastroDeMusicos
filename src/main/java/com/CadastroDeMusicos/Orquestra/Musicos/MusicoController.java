@@ -17,20 +17,19 @@ public class MusicoController {
 
     // criar músico
     @PostMapping("/save")
-    public MusicoModel create(@RequestBody MusicoModel musico){
+    public MusicoDTO create(@RequestBody MusicoDTO musico){
         return musicoService.saveMusico(musico);
     }
 
-
     // Listar músico
     @GetMapping("/read")
-    public List<MusicoModel> read(){
+    public List<MusicoDTO> read(){
         return musicoService.listarMusicos();
     }
 
     // Listar Musico por ID
     @GetMapping("/id/{id}")
-    public MusicoModel readByID(@PathVariable Long id){
+    public MusicoDTO readByID(@PathVariable Long id){
         return musicoService.listarPorId(id);
     }
 
@@ -43,8 +42,10 @@ public class MusicoController {
 
     // Atualizar músico
     @PutMapping("/atualizar/{id}")
-    public String atualizar(@PathVariable Long id, @RequestBody MusicoModel musico){
+    public String atualizar(@PathVariable Long id, @RequestBody MusicoDTO musico){
         musicoService.atualizarMusico(id, musico);
         return "Músico Atualizado";
     }
 }
+
+// faltam getByID & getAll
