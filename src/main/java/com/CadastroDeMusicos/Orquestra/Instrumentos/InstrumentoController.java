@@ -1,5 +1,7 @@
 package com.CadastroDeMusicos.Orquestra.Instrumentos;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,34 +16,45 @@ public class InstrumentoController {
         this.instrumentoService = instrumentoService;
     }
 
-    // Listar todos
     @GetMapping("/listar")
-    public List<InstrumentoDTO> listarTodos(){
-        return instrumentoService.listar();
+    public ResponseEntity<List<InstrumentoDTO>> listarTodos(){
+        List<InstrumentoDTO> instrumentos = instrumentoService.listar();
+        return ResponseEntity.ok(instrumentos);
     }
 
-    // Listar por ID
     @GetMapping("/id/{id}")
-        public InstrumentoDTO listarById(@PathVariable Long id){
-        return instrumentoService.listarPorID(id);
+        public ResponseEntity<?> listarById(@PathVariable Long id){
+        InstrumentoDTO instrumento = instrumentoService.listarPorID(id);
+        if(instrumento != null){
+            return ResponseEntity.ok(instrumento);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Instrumento não encontrado");
     }
 
     @PostMapping("/save")
-    public String saveInstrumento(@RequestBody InstrumentoDTO instrumento){
+    public ResponseEntity<String> saveInstrumento(@RequestBody InstrumentoDTO instrumento){
         instrumentoService.save((instrumento));
-        return "Instrumento Salvo com Sucesso";
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Instrumento Cadastrado");
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteInstrumento(@PathVariable Long id){
-        instrumentoService.delete(id);
-        return "Instrumento deletado";
+    public ResponseEntity<String> deleteInstrumento(@PathVariable Long id){
+        if(instrumentoService.listarPorID(id) != null){
+            return ResponseEntity.ok("Instrumento removido");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Instrumento não encontrado");
     }
 
-    // Atualizar Instrumento
     @PutMapping("/atualizar/{id}")
-    public String atualizarInstrumento(@PathVariable Long id, @RequestBody InstrumentoDTO instrumento){
-        instrumentoService.atualizarInstrumento(id, instrumento);
-        return "Instrumento Atualizado";
+    public ResponseEntity<String> atualizarInstrumento(@PathVariable Long id, @RequestBody InstrumentoDTO instrumento){
+        if(instrumentoService.listarPorID(id) != null){
+            instrumentoService.atualizarInstrumento(id, instrumento);
+            return ResponseEntity.ok("Instrumento atualizado");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Instrumento não encontrado");
     }
 }

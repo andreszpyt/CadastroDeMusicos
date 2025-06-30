@@ -1,9 +1,12 @@
 package com.CadastroDeMusicos.Orquestra.Musicos;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/musicos")
@@ -15,37 +18,44 @@ public class MusicoController {
         this.musicoService = musicoService;
     }
 
-    // criar músico
     @PostMapping("/save")
-    public MusicoDTO create(@RequestBody MusicoDTO musico){
-        return musicoService.saveMusico(musico);
+    public ResponseEntity<String> create(@RequestBody MusicoDTO musico){
+        musicoService.saveMusico(musico);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Músico cadastrado");
     }
 
-    // Listar músico
     @GetMapping("/read")
-    public List<MusicoDTO> read(){
-        return musicoService.listarMusicos();
+    public ResponseEntity<List<MusicoDTO>> read(){
+        List<MusicoDTO> musicos = musicoService.listarMusicos();
+        return ResponseEntity.ok(musicos);
     }
 
     // Listar Musico por ID
     @GetMapping("/id/{id}")
-    public MusicoDTO readByID(@PathVariable Long id){
-        return musicoService.listarPorId(id);
+    public ResponseEntity<?> readByID(@PathVariable Long id){
+        MusicoDTO musico = musicoService.listarPorId(id);
+        if(musico != null){
+            return ResponseEntity.ok(musico);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Músico não encontrado");
     }
 
-    // deletar músico por id
     @DeleteMapping("/remover/{id}")
-    public String remove(@PathVariable Long id){
-        musicoService.removerMusico(id);
-        return "Músico removido";
+    public ResponseEntity<String> remove(@PathVariable Long id){
+        if(musicoService.listarPorId(id) != null){
+            musicoService.removerMusico(id);
+            return ResponseEntity.ok("Músico removido");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Músico não encontrado");
     }
 
-    // Atualizar músico
     @PutMapping("/atualizar/{id}")
-    public String atualizar(@PathVariable Long id, @RequestBody MusicoDTO musico){
-        musicoService.atualizarMusico(id, musico);
-        return "Músico Atualizado";
+    public ResponseEntity<String> atualizar(@PathVariable Long id, @RequestBody MusicoDTO musico){
+        if(musicoService.listarPorId(id) != null){
+            musicoService.atualizarMusico(id, musico);
+            return ResponseEntity.ok("Músico atualizado");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Músico não encontrado");
     }
 }
-
-// faltam getByID & getAll

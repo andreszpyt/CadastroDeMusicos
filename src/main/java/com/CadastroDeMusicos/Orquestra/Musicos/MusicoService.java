@@ -29,8 +29,7 @@ public class MusicoService {
                 .orElse(null);
     }
 
-
-        public MusicoDTO saveMusico(MusicoDTO dto){
+    public MusicoDTO saveMusico(MusicoDTO dto){
             MusicoModel musico = musicoMapper.map(dto);
             MusicoModel saved = musicoRepository.save(musico);
            return musicoMapper.map(saved);
