@@ -23,13 +23,13 @@ public class MusicoController {
 
     // Listar músico
     @GetMapping("/read")
-    public List<MusicoModel> read(){
+    public List<MusicoDTO> read(){
         return musicoService.listarMusicos();
     }
 
     // Listar Musico por ID
     @GetMapping("/id/{id}")
-    public MusicoModel readByID(@PathVariable Long id){
+    public MusicoDTO readByID(@PathVariable Long id){
         return musicoService.listarPorId(id);
     }
 
@@ -47,3 +47,5 @@ public class MusicoController {
         return "Músico Atualizado";
     }
 }
+
+// faltam getByID & getAll

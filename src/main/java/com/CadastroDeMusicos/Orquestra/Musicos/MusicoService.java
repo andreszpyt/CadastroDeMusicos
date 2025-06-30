@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MusicoService {
@@ -15,14 +16,19 @@ public class MusicoService {
         this.musicoMapper = musicoMapper;
     }
 
-    public List<MusicoModel> listarMusicos(){
-            return musicoRepository.findAll();
+    public List<MusicoDTO> listarMusicos(){
+        List<MusicoModel> musicos = musicoRepository.findAll();
+            return musicos.stream()
+                    .map(musicoMapper::map)
+                    .collect(Collectors.toList());
         }
 
-        public MusicoModel listarPorId(Long id){
-            Optional<MusicoModel> musicoId = musicoRepository.findById(id);
-            return musicoId.orElse(null);
-        }
+    public MusicoDTO listarPorId(Long id) {
+        return musicoRepository.findById(id)
+                .map(musicoMapper::map)
+                .orElse(null);
+    }
+
 
         public MusicoDTO saveMusico(MusicoDTO dto){
             MusicoModel musico = musicoMapper.map(dto);
@@ -35,10 +41,12 @@ public class MusicoService {
         }
 
         public MusicoDTO atualizarMusico(Long id, MusicoDTO musico){
-            if(musicoRepository.existsById(id)){
-                MusicoModel model = musicoMapper.map(musico);
-                MusicoModel update = musicoRepository.save(model);
-                return musicoMapper.map(update);
+            Optional<MusicoModel> musicoExistente = musicoRepository.findById(id);
+            if(musicoExistente.isPresent()){
+                MusicoModel musicoModel = musicoMapper.map(musico);
+                musicoModel.setId(id);
+                musicoModel = musicoRepository.save(musicoModel);
+                return musicoMapper.map(musicoModel);
             }
             return null;
         }
