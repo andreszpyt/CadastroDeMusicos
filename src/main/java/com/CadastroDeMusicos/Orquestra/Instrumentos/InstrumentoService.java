@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class InstrumentoService {
-    private InstrumentoRepository instrumentoRepository;
-    private InstrumentoMapper instrumentoMapper;
+    private final InstrumentoRepository instrumentoRepository;
+    private final InstrumentoMapper instrumentoMapper;
 
     public InstrumentoService(InstrumentoRepository instrumentoRepository, InstrumentoMapper instrumentoMapper) {
         this.instrumentoRepository = instrumentoRepository;

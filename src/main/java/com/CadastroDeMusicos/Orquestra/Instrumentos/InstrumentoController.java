@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping("/instrumentos")
 public class InstrumentoController {
 
-    public InstrumentoService instrumentoService;
+    public final InstrumentoService instrumentoService;
 
     public InstrumentoController(InstrumentoService instrumentoService) {
         this.instrumentoService = instrumentoService;

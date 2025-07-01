@@ -1,18 +1,16 @@
 package com.CadastroDeMusicos.Orquestra.Musicos;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/musicos")
 public class MusicoController {
 
-    private MusicoService musicoService;
+    private final MusicoService musicoService;
 
     public MusicoController(MusicoService musicoService) {
         this.musicoService = musicoService;
