@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "musico")
 @Table(name = "tb_instrumentos")
 public class InstrumentoModel {
     @Id

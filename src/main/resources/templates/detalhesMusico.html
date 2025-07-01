@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Músico</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            padding: 40px;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .info {
+            margin-bottom: 20px;
+        }
+
+        .info strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .value {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+
+        .voltar {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .voltar:hover {
+            background-color: #2980b9;
+        }
+
+        .editar {
+            background-color: #f39c12;
+            color: #fff;
+        }
+
+        .editar:hover {
+            background-color: #d68910;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Detalhes do Músico</h1>
+
+    <div class="info">
+        <strong>Nome:</strong>
+        <div class="value" th:text="${musico.nome}">Nome do Músico</div>
+    </div>
+
+    <div class="info">
+        <strong>Idade:</strong>
+        <div class="value" th:text="${musico.idade}">25</div>
+    </div>
+
+    <div class="info">
+        <strong>Comum:</strong>
+        <div class="value" th:text="${musico.comum}">Sim</div>
+    </div>
+
+    <div class="info">
+        <strong>Instrumento:</strong>
+        <div class="value">
+            <span th:if="${musico.instrumento != null}" th:text="${musico.instrumento.nome}">Violino</span>
+            <span th:if="${musico.instrumento == null}">Sem instrumento</span>
+        </div>
+    </div>
+
+    <div class="button-group">
+        <a th:href="@{/musicos/ui/read}" class="voltar">Voltar</a>
+    </div>
+</div>
+</body>
+</html>

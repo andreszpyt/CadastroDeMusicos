@@ -11,7 +11,7 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "instrumento")
+@ToString()
 @Table(name = "tb_musicos")
 public class MusicoModel {
     @Id

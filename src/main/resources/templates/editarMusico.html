@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Músico</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            padding: 40px;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        input, select {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #27ae60;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #219150;
+        }
+
+        .voltar {
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .voltar:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Editar Músico</h1>
+
+    <form th:action="@{/musicos/ui/atualizar}" th:object="${musico}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" th:field="*{nome}" placeholder="Digite o nome" required />
+
+        <label for="idade">Idade</label>
+        <input type="number" id="idade" th:field="*{idade}" placeholder="Digite a idade" required />
+
+        <label for="comum">Cidade (Comum)</label>
+        <input type="text" id="comum" th:field="*{comum}" placeholder="Digite a cidade de origem" required />
+
+        <label for="instrumento">Instrumento</label>
+        <select id="instrumento" th:field="*{instrumento.id}">
+            <option th:each="instrumento : ${instrumentos}"
+                    th:value="${instrumento.id}"
+                    th:text="${instrumento.nome}">
+            </option>
+        </select>
+
+        <button type="submit">Salvar Alterações</button>
+    </form>
+
+    <a th:href="@{/musicos/ui/read}" class="voltar">Cancelar</a>
+</div>
+</body>
+</html>

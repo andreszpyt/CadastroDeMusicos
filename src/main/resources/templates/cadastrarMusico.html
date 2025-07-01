@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Músico</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            padding: 40px;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            margin-top: 16px;
+        }
+
+        form input, form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .actions {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .actions button {
+            background-color: #2ecc71;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .actions button:hover {
+            background-color: #27ae60;
+        }
+
+        .voltar {
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .voltar:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Cadastrar Novo Músico</h1>
+
+    <form th:action="@{/musicos/ui/salvar}" th:object="${musico}" method="post">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" th:field="*{nome}" placeholder="Digite o nome" required />
+
+        <label for="idade">Idade</label>
+        <input type="number" id="idade" th:field="*{idade}" placeholder="Digite a idade" required />
+
+        <label for="comum">Cidade (Comum)</label>
+        <input type="text" id="comum" th:field="*{comum}" placeholder="Digite a comum" required />
+
+        <label for="instrumento">Instrumento</label>
+        <select id="instrumento" th:field="*{instrumento.id}">
+            <option value="-1" disabled selected>Selecione um instrumento</option>
+            <option th:each="instrumento : ${instrumentos}"
+                    th:value="${instrumento.id}"
+                    th:text="${instrumento.nome}">
+            </option>
+        </select>
+
+        <div class="actions">
+            <button type="submit">Salvar</button>
+        </div>
+    </form>
+
+    <div class="actions">
+        <a th:href="@{/musicos/ui/read}" class="voltar">← Voltar para a lista</a>
+    </div>
+</div>
+</body>
+</html>
